@@ -1,0 +1,20 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Editor directories
+.idea/
+.vscode/
+*.sublime-*
+
+# Python
+__pycache__/
+*.py[cod]
+.env
+venv/
+
+# Temporary files
+*.tmp
+*.log

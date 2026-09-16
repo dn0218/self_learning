@@ -1,0 +1,57 @@
+name: Learning Stages Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: 检查学习阶段文件
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Check all stage files exist
+      run: |
+        echo "🔍 检查学习阶段文件完整性..."
+        echo ""
+
+        errors=0
+
+        for i in $(seq -w 1 13); do
+          stage_dir=$(find learning_stages -maxdepth 1 -type d -name "STAGE_${i}_*" | head -n 1)
+
+          if [ -z "$stage_dir" ]; then
+            echo "❌ Stage $i: 目录不存在"
+            errors=$((errors + 1))
+            continue
+          fi
+
+          stage_md=$(find "$stage_dir" -maxdepth 1 -name "*.md" ! -name "INSTRUCTOR.md" | head -n 1)
+          instructor_md="$stage_dir/INSTRUCTOR.md"
+
+          if [ -n "$stage_md" ] && [ -f "$instructor_md" ]; then
+            echo "✅ Stage $i: 文件完整 ($(basename "$stage_md"), INSTRUCTOR.md)"
+          else
+            echo "❌ Stage $i: 文件缺失"
+            errors=$((errors + 1))
+          fi
+        done
+
+        if [ $errors -eq 0 ]; then
+          echo "✨ 所有阶段文件检查通过！"
+        else
+          echo "⚠️ 发现 $errors 个问题"
+          exit 1
+        fi
+
+    - name: Count total content
+      run: |
+        echo "📊 内容统计："
+        echo "- 阶段数量: $(find learning_stages -maxdepth 1 -type d -name 'STAGE_*' | wc -l)"
+        echo "- 学习文档: $(find learning_stages -name 'STAGE_*.md' | wc -l)"
+        echo "- 指导文件: $(find learning_stages -name 'INSTRUCTOR.md' | wc -l)"
