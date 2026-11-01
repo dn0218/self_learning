@@ -81,21 +81,12 @@ learning_stages/
 
 ### 路径A：SRE工程师
 ```
-01 → 02 → 05 → 06 → 07 → 08 → 09 → 10 → 11 → 12 → 13
-HTTP → 重试 → Linux → 网络 → DNS → 幂等 → 安全 → Docker → K8s → 监控 → CI/CD
+主线 SRE/DevOps：01 HTTP → 02 重试 → 05 Linux 进程 → 06 Linux 网络 → 10 Docker → 11 K8s → 12 监控 → 13 CI/CD。
+穿插：07 DNS/Cloudflare、08 幂等自愈、09 Web 安全，遇到项目需要再深入。
+AI 分支：03 OpenAI SDK、04 Prompt 工程作为 AI Engineer/AI Infra 的加分项，不要挤占主线。
 ```
 
-### 路径B：AI Infra工程师
-```
-01 → 02 → 03 → 04 → 10 → 11 → 12 → 13
-HTTP → 重试 → SDK → Prompt → Docker → K8s → 监控 → CI/CD
-```
 
-### 路径C：DevOps工程师
-```
-01 → 02 → 05 → 06 → 10 → 11 → 12 → 13
-HTTP → 重试 → Linux → 网络 → Docker → K8s → 监控 → CI/CD
-```
 
 ---
 
